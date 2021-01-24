@@ -1,0 +1,7 @@
+{
+  "name": "tfm-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

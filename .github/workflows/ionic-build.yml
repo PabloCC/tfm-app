@@ -20,4 +20,4 @@ jobs:
           node-version: 14
       - run: npm i
       - run: npm run-script build
-      - run: npm run-script test
+      - run: npm run-script test-no-watch

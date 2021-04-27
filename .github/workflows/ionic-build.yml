@@ -3,7 +3,6 @@ name: Ionic - Build
 on:
   push:
     branches:
-      - 'master'
       - 'develop'
       - 'release-*'
 

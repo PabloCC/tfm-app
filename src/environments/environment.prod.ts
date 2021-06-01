@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  API_REST_URL: 'https://pablocc-tfm-server.herokuapp.com', 
 };

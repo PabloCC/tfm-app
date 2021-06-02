@@ -5,28 +5,35 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="signUpForm">
-    <div class="wrapper">
-      <ion-item>
-        <ion-label position="floating">Username</ion-label>
-        <ion-input formControlName="username"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input formControlName="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input formControlName="password" type="password"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Rol</ion-label>
-        <ion-input formControlName="role"></ion-input>
-      </ion-item>
-    </div>
-    <div class="wrapper">
-      <ion-button (click)="onSubmit()" expand="block" [disabled]="signUpForm.invalid">Registrarse</ion-button>
-      <p>Ya tienes cuenta <a>Inicia sesión</a></p>
-    </div>
-  </form>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="12" size-md="6" offset-md="3">
+        <form [formGroup]="signUpForm">
+          <div class="wrapper">
+            <ion-item>
+              <ion-label position="floating">Username</ion-label>
+              <ion-input formControlName="username"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input formControlName="email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Contraseña</ion-label>
+              <ion-input formControlName="password" type="password"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Rol</ion-label>
+              <ion-input formControlName="role"></ion-input>
+            </ion-item>
+          </div>
+          <div class="wrapper">
+            <ion-button (click)="onSubmit()" expand="block" [disabled]="signUpForm.invalid">Registrarse</ion-button>
+            <p>Ya tienes cuenta <a>Inicia sesión</a></p>
+          </div>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

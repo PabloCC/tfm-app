@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpService } from 'src/app/core/http.service';
+import { EndPoints } from 'src/app/shared/end-points';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class SignupPage implements OnInit {
   signUpForm: FormGroup;
 
-  constructor() { 
+  constructor(private httpService: HttpService) { 
     this.signUpForm = new FormGroup({
       username: new FormControl('', [
         Validators.required,
@@ -36,5 +38,7 @@ export class SignupPage implements OnInit {
       password: this.signUpForm.get('password').value,
       role: this.signUpForm.get('role').value,
     }
+
+    this.httpService.post(EndPoints.SIGN_UP_ENDOINT, body).subscribe();
   }
 }

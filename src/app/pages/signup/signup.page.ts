@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from '../../core/services/http.service';
 import { EndPoints } from '../../shared/end-points';
 
@@ -11,7 +13,11 @@ import { EndPoints } from '../../shared/end-points';
 export class SignupPage implements OnInit {
   signUpForm: FormGroup;
 
-  constructor(private httpService: HttpService) { 
+  constructor(private httpService: HttpService, private authService: AuthService, private router: Router) { 
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/tabs']);
+    }
+
     this.signUpForm = new FormGroup({
       username: new FormControl('', [
         Validators.required,

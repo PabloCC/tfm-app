@@ -7,8 +7,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  username: string;
+  email: string;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) { 
+    this.username = this.authService.getUsername();
+    this.email = this.authService.getEmail();
+  }
 
   ngOnInit() {
   }

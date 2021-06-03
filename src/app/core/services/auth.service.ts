@@ -62,6 +62,10 @@ export class AuthService {
     return this.user ? this.user.username : '???';
   }
 
+  getEmail(): string {
+    return this.user ? this.user.email : '???';
+  }
+
   getToken(): string {
     return this.user ? this.user.token : undefined;
   }

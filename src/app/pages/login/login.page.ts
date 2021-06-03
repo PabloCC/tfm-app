@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpService } from '../../core/http.service';
-import { EndPoints } from '../../shared/end-points';
-
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -11,7 +10,11 @@ import { EndPoints } from '../../shared/end-points';
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private httpService: HttpService) { 
+  constructor(private authService: AuthService, private router: Router) { 
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/tabs']);
+    }
+     
     this.loginForm = new FormGroup({
       username: new FormControl('', [
         Validators.required,
@@ -31,6 +34,6 @@ export class LoginPage implements OnInit {
       password: this.loginForm.get('password').value,
     }
 
-    this.httpService.post(EndPoints.LOGIN_ENDOINT, body).subscribe();
+    this.authService.login(body);
   }
 }

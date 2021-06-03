@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { EndPoints } from '../shared/end-points';
+import { EndPoints } from '../../shared/end-points';
 import { HttpService } from './http.service';
-import { Role } from './role.enum';
-import { User } from './user';
+import { Role } from '../models/role.enum';
+import { User } from '../models/user';
 import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({

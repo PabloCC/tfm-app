@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/core/auth.service';
 import { HttpService } from '../../core/http.service';
 import { EndPoints } from '../../shared/end-points';
 
@@ -11,7 +12,7 @@ import { EndPoints } from '../../shared/end-points';
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private httpService: HttpService) { 
+  constructor(private authService: AuthService) { 
     this.loginForm = new FormGroup({
       username: new FormControl('', [
         Validators.required,
@@ -31,6 +32,6 @@ export class LoginPage implements OnInit {
       password: this.loginForm.get('password').value,
     }
 
-    this.httpService.post(EndPoints.LOGIN_ENDOINT, body).subscribe();
+    this.authService.login(body);
   }
 }

@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SignupPage } from './signup.page';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 describe('SignupPage', () => {
   let component: SignupPage;
@@ -14,7 +15,17 @@ describe('SignupPage', () => {
       imports: [
         IonicModule.forRoot(), 
         HttpClientTestingModule, 
-        RouterTestingModule
+        RouterTestingModule,
+        JwtModule.forRoot({
+          config: {
+            tokenGetter: () => {
+              return '';
+            }
+          }
+        })
+      ], 
+      providers: [
+        JwtHelperService,
       ]
     }).compileComponents();
 

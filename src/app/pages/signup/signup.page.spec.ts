@@ -23,9 +23,9 @@ describe('SignupPage', () => {
             }
           }
         })
-      ],
+      ], 
       providers: [
-        JwtHelperService
+        JwtHelperService,
       ]
     }).compileComponents();
 

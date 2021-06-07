@@ -23,6 +23,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {roles: [Role.ADMIN, Role.TEACHER, Role.FAMILY]},
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
+    canActivate: [AuthGuard],
+  },
 ];
 @NgModule({
   imports: [

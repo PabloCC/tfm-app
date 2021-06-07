@@ -13,6 +13,7 @@ export class AuthService {
   private user: User;
 
   constructor(private httpService: HttpService, private router: Router, private jwt: JwtHelperService) {
+    this.getDataFromSessionStorage();
   }
 
   login(body) {
@@ -27,9 +28,18 @@ export class AuthService {
           role: this.jwt.decodeToken(token).role,
           token,
         };
-        console.log(this.jwt.decodeToken(token));
-      this.router.navigate(['/tabs/tab1']);
+
+        this.saveSessionStorage();
+        this.router.navigate(['/tabs/tab1']);
     });
+  }
+
+  saveSessionStorage() {
+    window.sessionStorage.setItem('user-session', JSON.stringify(this.user));
+  }
+
+  getDataFromSessionStorage() {
+    this.user = JSON.parse(window.sessionStorage.getItem('user-session')) || null;
   }
 
   logout(): void {

@@ -1,19 +1,18 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { UrlSerializer } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { IonicModule } from '@ionic/angular';
 
-import { Tab1Page } from './tab1.page';
+import { CreateClassroomPage } from './create-classroom.page';
 
-describe('Tab1Page', () => {
-  let component: Tab1Page;
-  let fixture: ComponentFixture<Tab1Page>;
+describe('CreateClassroomPage', () => {
+  let component: CreateClassroomPage;
+  let fixture: ComponentFixture<CreateClassroomPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [Tab1Page],
+      declarations: [ CreateClassroomPage ],
       imports: [
         IonicModule.forRoot(),
         HttpClientTestingModule, 
@@ -31,7 +30,7 @@ describe('Tab1Page', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Tab1Page);
+    fixture = TestBed.createComponent(CreateClassroomPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

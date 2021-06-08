@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { ClassroomsService } from 'src/app/shared/services/classrooms.service';
 
 @Component({
@@ -8,16 +10,26 @@ import { ClassroomsService } from 'src/app/shared/services/classrooms.service';
 })
 export class Tab1Page implements OnInit{
   classrooms: [];
+  isAdmin: boolean;
 
-  constructor(private classroomsService: ClassroomsService) {
+  constructor(private classroomsService: ClassroomsService, private router: Router, private authService: AuthService) {
+    this.isAdmin = false;
+  }
+
+  ionViewWillEnter() {
+    this.getClassrooms();
+    this.isAdmin = this.authService.getRole() === 'ADMIN';
   }
   
   ngOnInit(): void {
-    this.getClassrooms();
   }
 
   async getClassrooms() {
     this.classrooms = await this.classroomsService.getClassrooms();  
+  }
+
+  createClassroom() {
+    this.router.navigate(['/tabs/tab1/create-classroom']);
   }
 
 }

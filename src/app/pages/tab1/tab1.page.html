@@ -1,6 +1,6 @@
 <ion-header mode="ios">
   <ion-toolbar>
-    <ion-title>Tab1</ion-title>
+    <ion-title>Aulas</ion-title>
     <ion-buttons slot="end">
       <ion-button class="profile" color="primary" fill="outline" [routerLink]="['/profile']">
         <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
@@ -13,15 +13,17 @@
   <ion-grid>
     <ion-row>
       <ion-col size-sm="12" size-md="6" offset-md="3">
-        <ion-title>Aulas</ion-title>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size-sm="12" size-md="6" offset-md="3">
-        <div *ngFor="let classroom of classrooms">
-          {{classroom.name}}
-        </div>
+          <ion-card *ngFor="let classroom of classrooms" [routerLink]="['/tabs/tab1/classroom', classroom.id]">
+            <ion-card-title>{{classroom.name}}</ion-card-title>
+          </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-fab *ngIf="isAdmin" (click)="createClassroom()" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

@@ -13,6 +13,7 @@ export class AuthService {
   private user: User;
 
   constructor(private httpService: HttpService, private router: Router, private jwt: JwtHelperService) {
+    this.getDataFromSessionStorage();
   }
 
   login(body) {
@@ -25,11 +26,21 @@ export class AuthService {
           username: this.jwt.decodeToken(token).username,
           email: this.jwt.decodeToken(token).email,
           role: this.jwt.decodeToken(token).role,
+          name: this.jwt.decodeToken(token).name,
           token,
         };
-        console.log(this.jwt.decodeToken(token));
-      this.router.navigate(['/tabs/tab1']);
+
+        this.saveSessionStorage();
+        this.router.navigate(['/tabs/tab1']);
     });
+  }
+
+  saveSessionStorage() {
+    window.sessionStorage.setItem('user-session', JSON.stringify(this.user));
+  }
+
+  getDataFromSessionStorage() {
+    this.user = JSON.parse(window.sessionStorage.getItem('user-session')) || null;
   }
 
   logout(): void {
@@ -45,7 +56,6 @@ export class AuthService {
     return this.isAuthenticated() && roles.includes(this.user.role);
   }
   
-
   isAdmin(): boolean {
     return this.hasRoles([Role.ADMIN]);
   }
@@ -56,6 +66,10 @@ export class AuthService {
 
   isFamily(): boolean {
     return this.hasRoles([Role.FAMILY]);
+  }
+
+  getName(): string {
+    return this.user ? this.user.name : '???';
   }
 
   getUsername(): string {

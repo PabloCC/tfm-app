@@ -19,6 +19,9 @@ export class SignupPage implements OnInit {
     }
 
     this.signUpForm = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+      ]),
       username: new FormControl('', [
         Validators.required,
       ]),
@@ -39,12 +42,15 @@ export class SignupPage implements OnInit {
 
   onSubmit() {
     const body = {
+      name: this.signUpForm.get('name').value,
       username: this.signUpForm.get('username').value,
       email: this.signUpForm.get('email').value,
       password: this.signUpForm.get('password').value,
       role: this.signUpForm.get('role').value,
     }
 
-    this.httpService.post(EndPoints.SIGN_UP_ENDOINT, body).subscribe();
+    this.httpService
+    .successful('Registro completado')
+    .post(EndPoints.SIGN_UP_ENDOINT, body).subscribe();
   }
 }

@@ -1,0 +1,43 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="">
+      </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="12" size-md="6" offset-md="3">
+        <form>
+          <div class="wrapper">
+            <ion-card>
+              <ion-card-title>Nombre</ion-card-title>
+              <ion-text color="primary">
+                <h3>{{name}}</h3>
+              </ion-text>
+              <ion-card-title>Usuario</ion-card-title>
+              <ion-text color="primary">
+                <h3>{{username}}</h3>
+              </ion-text>
+              <ion-card-title>Email</ion-card-title>
+              <ion-text color="primary">
+                <h3>{{email}}</h3>
+              </ion-text>
+              <ion-card-title>Rol</ion-card-title>
+              <ion-text color="primary">
+                <h3>{{role}}</h3>
+              </ion-text>
+            </ion-card>
+          </div>
+          <div class="wrapper logout">
+            <ion-button (click)="onLogout()" color="danger" expand="block">Cerrar sesión</ion-button>
+          </div>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

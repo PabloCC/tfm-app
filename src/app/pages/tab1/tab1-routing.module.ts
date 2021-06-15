@@ -19,6 +19,12 @@ const routes: Routes = [
     path: 'classroom/:id',
     loadChildren: () => import('./classroom/classroom.module').then( m => m.ClassroomPageModule)
   },
+  {
+    path: 'edit-classroom/:id',
+    loadChildren: () => import('./edit-classroom/edit-classroom.module').then( m => m.EditClassroomPageModule),
+    canActivate: [RoleGuard],
+    data: {roles: [Role.ADMIN]},
+  },
 ];
 
 @NgModule({

@@ -26,6 +26,7 @@ export class AuthService {
           username: this.jwt.decodeToken(token).username,
           email: this.jwt.decodeToken(token).email,
           role: this.jwt.decodeToken(token).role,
+          name: this.jwt.decodeToken(token).name,
           token,
         };
 
@@ -55,7 +56,6 @@ export class AuthService {
     return this.isAuthenticated() && roles.includes(this.user.role);
   }
   
-
   isAdmin(): boolean {
     return this.hasRoles([Role.ADMIN]);
   }
@@ -66,6 +66,10 @@ export class AuthService {
 
   isFamily(): boolean {
     return this.hasRoles([Role.FAMILY]);
+  }
+
+  getName(): string {
+    return this.user ? this.user.name : '???';
   }
 
   getUsername(): string {

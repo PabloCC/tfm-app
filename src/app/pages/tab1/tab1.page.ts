@@ -32,4 +32,10 @@ export class Tab1Page implements OnInit{
     this.router.navigate(['/tabs/tab1/create-classroom']);
   }
 
+  onEdit(e: MouseEvent, id) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    this.router.navigate(['/tabs/tab1/edit-classroom/' + id]);
+  }
 }

@@ -49,7 +49,7 @@ export class EditClassroomPage implements OnInit {
         this.updateClassroomForm.setValue({
           name: res.name,
           stage: res.stage.toString(),
-          teachers: res.teachers.map(item => item.id),
+          teachers: res.teachers,
         })
 
         console.log(this.updateClassroomForm)
@@ -57,11 +57,10 @@ export class EditClassroomPage implements OnInit {
   }
 
   onSubmit() {
-    const teachersSelected = this.teachers.filter(item => this.updateClassroomForm.get('teachers').value.includes(item.id))
     const body = {
       name: this.updateClassroomForm.get('name').value,
       stage: parseInt(this.updateClassroomForm.get('stage').value),
-      teachers: teachersSelected
+      teachers: this.updateClassroomForm.get('teachers')
     }
 
     this.httpService.authBearer(this.authService.getToken())

@@ -16,19 +16,28 @@
           <ion-card *ngFor="let classroom of classrooms" [routerLink]="['/tabs/tab1/classroom', classroom.id]">
             <div class="card-wrapper">
               <ion-card-title>{{classroom.name}}</ion-card-title>
-              <ion-button *ngIf="isAdmin" color="primary" fill="none" (click)="onEdit($event, classroom.id)">
-                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-              </ion-button>
+              <div>
+                <ion-button *ngIf="isAdmin" size="small" fill="none" (click)="onEdit($event, classroom.id)">
+                  <ion-icon slot="icon-only" color="primary" name="create-outline"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="isAdmin" size="small" fill="none" (click)="onRemove($event, classroom.id)">
+                  <ion-icon slot="icon-only" color="danger" name="trash-outline"></ion-icon>
+                </ion-button>
+              </div>
             </div>
           </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-fab *ngIf="isAdmin" (click)="createClassroom()" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab *ngIf="isAdmin" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button [routerLink]="['/tabs/tab1/create-classroom']"><ion-icon name="school" color="primary"></ion-icon></ion-fab-button>
+      <ion-fab-button [routerLink]="['/signup']"><ion-icon name="person-add" color="primary"></ion-icon></ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
 
 </ion-content>

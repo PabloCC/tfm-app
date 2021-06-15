@@ -39,11 +39,10 @@ export class CreateClassroomPage implements OnInit {
   }
 
   onSubmit() {
-    const teachersSelected = this.teachers.filter(item => this.createClassroomForm.get('teachers').value.includes(item.id))
     const body = {
       name: this.createClassroomForm.get('name').value,
       stage: parseInt(this.createClassroomForm.get('stage').value),
-      teachers: teachersSelected
+      teachers: this.createClassroomForm.get('teachers').value
     }
 
     this.httpService.authBearer(this.authService.getToken())

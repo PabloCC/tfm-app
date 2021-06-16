@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { EndPoints } from 'src/app/shared/end-points';
@@ -14,7 +15,7 @@ import { ClassroomsService } from 'src/app/shared/services/classrooms.service';
 export class Tab1Page implements OnInit{
   classrooms: {id: number}[];
   isAdmin: boolean;
-
+  subscription : Subscription;
   constructor(
     private classroomsService: ClassroomsService, 
     private router: Router, 
@@ -24,12 +25,19 @@ export class Tab1Page implements OnInit{
     this.isAdmin = false;
   }
 
-  ionViewWillEnter() {
-    this.getClassrooms();
-    this.isAdmin = this.authService.getRole() === 'ADMIN';
+  public async ngOnInit(): Promise<void> {
+    await this.onEnter();
+
+    this.subscription = this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd && event.url === '/tabs/tab1') {
+            this.onEnter();
+        }
+    });
   }
-  
-  ngOnInit(): void {
+
+  public async onEnter(): Promise<void> {
+    await this.getClassrooms();
+    this.isAdmin = this.authService.isAdmin();
   }
 
   async getClassrooms() {
@@ -74,5 +82,9 @@ export class Tab1Page implements OnInit{
     .then(() => {
       this.classrooms = this.classrooms.filter(item => item.id !== id);
     });
+  }
+
+  onNavigateToClassroom(classroom) {
+    this.classroomsService.setActiveClassroom(classroom.id);
   }
 }

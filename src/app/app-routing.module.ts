@@ -29,6 +29,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'modal',
+    loadChildren: () => import('./shared/components/modal/modal.module').then( m => m.ModalPageModule)
+  },
 ];
 @NgModule({
   imports: [

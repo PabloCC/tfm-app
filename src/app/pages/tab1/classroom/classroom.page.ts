@@ -16,6 +16,7 @@ export class ClassroomPage implements OnInit {
   classroom: any;
   students: [];
   subscription: Subscription;
+  title: string;
 
   constructor(
     private authService: AuthService,
@@ -26,27 +27,7 @@ export class ClassroomPage implements OnInit {
     this.isTeacher = false;
   }
 
-  ionViewWillEnter() {
-    this.classroom = this.classroomService.getActiveClassroom();
-
-    if (!this.classroom) {
-      const id = this.route.snapshot.params.id;
-
-      this.classroomService.getClassroomById(id)
-      .toPromise().then(res => {
-        this.classroomService.setActiveClassroom(res.id);
-        this.students = res.students;
-      })
-    } else {
-      this.students = this.classroom.students;
-    }
-
-    this.isTeacher = this.authService.isTeacher();
-  } 
-
   public async ngOnInit(): Promise<void> {
-    console.log("Entrooo oninit")
-
     await this.onEnter();
 
     this.subscription = this.router.events.subscribe((event) => {
@@ -57,7 +38,26 @@ export class ClassroomPage implements OnInit {
   }
 
   public async onEnter(): Promise<void> {
-    console.log("Entrooo")
+    this.classroom = this.classroomService.getActiveClassroom();
+
+    if (!this.classroom) {
+      const id = this.route.snapshot.params.id;
+
+      this.classroomService.getClassroomById(id)
+      .toPromise().then(res => {
+        this.classroomService.setActiveClassroom(res.id);
+        this.students = res.students;
+        this.title = res.name;
+      })
+    } else {
+      this.title = this.classroom.name;
+      this.students = this.classroom.students;
+    }
     
+    this.isTeacher = this.authService.isTeacher();
+  }
+
+  onClickStudent(id) {
+    this.router.navigate(['/tabs/tab1/student', id]);
   }
 }

@@ -31,6 +31,14 @@ const routes: Routes = [
     canActivate: [RoleGuard],
     data: {roles: [Role.TEACHER]},
   },
+  {
+    path: 'student/:id',
+    loadChildren: () => import('./student/student.module').then( m => m.StudentPageModule)
+  },
+  {
+    path: 'add-goal',
+    loadChildren: () => import('./add-goal/add-goal.module').then( m => m.AddGoalPageModule)
+  },
 ];
 
 @NgModule({

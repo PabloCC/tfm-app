@@ -49,8 +49,6 @@ export class EditClassroomPage implements OnInit {
           stage: res.stage.toString(),
           teachers: res.teachers,
         })
-
-        console.log(this.updateClassroomForm)
       });
   }
 
@@ -58,12 +56,12 @@ export class EditClassroomPage implements OnInit {
     const body = {
       name: this.updateClassroomForm.get('name').value,
       stage: parseInt(this.updateClassroomForm.get('stage').value),
-      teachers: this.updateClassroomForm.get('teachers')
+      teachers: this.updateClassroomForm.get('teachers').value,
     }
 
     this.httpService.authBearer(this.authService.getToken())
       .successful('Aula editada')
-      .post(EndPoints.CLASSROOMS_ENDPOINT, body)
+      .put(EndPoints.CLASSROOMS_ENDPOINT + `/${this.id}`, body)
       .subscribe();
   }
 }

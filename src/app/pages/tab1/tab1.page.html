@@ -1,4 +1,4 @@
-<ion-header mode="ios">
+<ion-header mode="md">
   <ion-toolbar>
     <ion-title>Aulas</ion-title>
     <ion-buttons slot="end">
@@ -15,7 +15,10 @@
       <ion-col size-sm="12" size-md="6" offset-md="3">
           <ion-card (click)="onNavigateToClassroom(classroom)" *ngFor="let classroom of classrooms" [routerLink]="['/tabs/tab1/classroom', classroom.id]">
             <div class="card-wrapper">
-              <ion-card-title>{{classroom.name}}</ion-card-title>
+              <div>
+                <span>{{classroom.name.charAt(0)}}</span>
+                <ion-card-title>{{classroom.name}}</ion-card-title>
+              </div>
               <div>
                 <ion-button *ngIf="isAdmin" size="small" fill="none" (click)="onEdit($event, classroom.id)">
                   <ion-icon slot="icon-only" color="primary" name="create-outline"></ion-icon>

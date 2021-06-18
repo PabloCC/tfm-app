@@ -9,12 +9,12 @@ import { EndPoints } from 'src/app/shared/end-points';
 import { ClassroomsService } from 'src/app/shared/services/classrooms.service';
 
 @Component({
-  selector: 'app-add-student',
-  templateUrl: './add-student.page.html',
-  styleUrls: ['./add-student.page.scss'],
+  selector: 'app-add-goal',
+  templateUrl: './add-goal.page.html',
+  styleUrls: ['./add-goal.page.scss'],
 })
-export class AddStudentPage implements OnInit {
-  createStudentForm: FormGroup;
+export class AddGoalPage implements OnInit {
+  createGoalForm: FormGroup;
   classroom: any;
   families: [];
   images: any[];
@@ -25,31 +25,19 @@ export class AddStudentPage implements OnInit {
     private router: Router, 
     private classroomService: ClassroomsService,
     private modalController: ModalController) {
-      this.images = new Array(17);
-      this.createStudentForm = new FormGroup({
+      this.images = new Array(32);
+      this.createGoalForm = new FormGroup({
         name: new FormControl('', [
-          Validators.required,
-        ]),
-        birthdate: new FormControl('', [
           Validators.required,
         ]),
         image: new FormControl('', [
           Validators.required,
-        ]),
-        families: new FormControl([], [
-          Validators.required
         ]),
       });
   }
 
   
   ngOnInit() {
-    this.httpService.authBearer(this.authService.getToken())
-      .get(EndPoints.FAMILIES_ENDPOINT)
-      .toPromise()
-      .then(res => {
-        this.families = res;
-      });
   }
 
   async presentModal() {
@@ -60,7 +48,7 @@ export class AddStudentPage implements OnInit {
       presentingElement: await this.modalController.getTop(),
       componentProps: {
         images: this.images,
-        folder: 'profile'
+        folder: 'goals'
       } // Get the top-most ion-modal
     });
 
@@ -68,7 +56,7 @@ export class AddStudentPage implements OnInit {
 
     const { data } = await modal.onWillDismiss();
     if (data.image) {
-      this.createStudentForm.get('image').setValue(data.image);
+      this.createGoalForm.get('image').setValue(data.image);
     }
   }
 
@@ -76,17 +64,16 @@ export class AddStudentPage implements OnInit {
   onSubmit() {
     this.classroom = this.classroomService.getActiveClassroom();
     const body = {
-      name: this.createStudentForm.get('name').value,
-      birthdate: this.createStudentForm.get('birthdate').value,
-      families: this.createStudentForm.get('families').value,
-      image: this.createStudentForm.get('image').value,
+      name: this.createGoalForm.get('name').value,
+      date: new Date(Date.now()).toLocaleString().split(" ")[0],
+      image: this.createGoalForm.get('image').value,
       classroom: this.classroom,
     }
 
     this.httpService.authBearer(this.authService.getToken())
-      .successful('Estudiante creado correctamente')
-      .error('Error al crear el usuario')
-      .post(EndPoints.STUDENTS_ENDPOINT, body)
+      .successful('Logro creado correctamente')
+      .error('Error al crear el logro')
+      .post(EndPoints.GOALS_ENDPOINT, body)
       .toPromise()
       .then(() => {
         this.router.navigate(['/tabs/tab1/classroom/', this.classroom.id])

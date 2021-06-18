@@ -8,9 +8,11 @@ import { ModalController } from '@ionic/angular';
 })
 export class ModalPage implements OnInit {
   @Input() images: any[];
+  @Input() folder: string;
 
   constructor(private modalController: ModalController) { 
     this.images = [];
+    this.folder = '';
   }
 
   ngOnInit() {

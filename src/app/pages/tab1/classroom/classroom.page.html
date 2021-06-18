@@ -1,6 +1,6 @@
-<ion-header mode="ios">
+<ion-header mode="md">
   <ion-toolbar>
-    <ion-title>Aula</ion-title>
+    <ion-title>{{title}}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button text="">
       </ion-back-button>
@@ -11,17 +11,26 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col class="ion-align-self-start" size="4" *ngFor="let student of students">
-       <ion-card>
+      <ion-col class="ion-align-self-start" size="4" size-md="3" *ngFor="let student of students">
+       <ion-card *ngIf="isTeacher" (click)="onClickStudent(student.id)"> 
          <img height="50px" src="../../../../assets/icon/profile/{{student.image}}" alt="">
          <h2>{{student.name}}</h2>
        </ion-card>
+       <ion-card *ngIf="!isTeacher"> 
+        <img height="50px" src="../../../../assets/icon/profile/{{student.image}}" alt="">
+        <h2>{{student.name}}</h2>
+      </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
 
-<ion-fab [routerLink]="['/tabs/tab1/add-student']" *ngIf="isTeacher" vertical="bottom" horizontal="end" slot="fixed">
+<ion-fab  *ngIf="isTeacher" vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button>
-    <ion-icon name="person-add-outline"></ion-icon>  </ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button [routerLink]="['/tabs/tab1/add-goal']"><ion-icon name="trophy" color="primary"></ion-icon></ion-fab-button>
+    <ion-fab-button [routerLink]="['/tabs/tab1/add-student']"><ion-icon name="person-add" color="primary"></ion-icon></ion-fab-button>
+  </ion-fab-list>
 </ion-fab>

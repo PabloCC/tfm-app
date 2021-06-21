@@ -71,12 +71,14 @@ export class AuthService {
   }
 
   getUserWithoutToken() {
-    return {
-      username: this.user.username,
-      email: this.user.email,
-      role: this.user.role,
-      name: this.user.name,
-      id: this.user.id,
+    if(this.user) {
+      return {
+        username: this.user.username,
+        email: this.user.email,
+        role: this.user.role,
+        name: this.user.name,
+        id: this.user.id,
+      }
     }
   }
 

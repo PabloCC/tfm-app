@@ -5,6 +5,14 @@
       <ion-back-button text="">
       </ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button class="icon" size="small" fill="none" (click)="onEdit()" >
+        <ion-icon slot="icon-only" color="primary" name="create-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="icon" size="small" fill="none" (click)="onRemove()">
+        <ion-icon slot="icon-only" color="danger" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

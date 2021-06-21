@@ -11,14 +11,19 @@
 <ion-content>
   <ion-grid>
     <ion-row>
+      <ion-col>
+        <h1>Alumnos</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col class="ion-align-self-start" size="4" size-md="3" *ngFor="let student of students">
        <ion-card *ngIf="isTeacher" (click)="onClickStudent(student.id)"> 
          <img height="50px" src="../../../../assets/icon/profile/{{student.image}}" alt="">
-         <h2>{{student.name}}</h2>
+         <h2>{{student.name.split(" ")[0]}}</h2>
        </ion-card>
        <ion-card *ngIf="!isTeacher"> 
         <img height="50px" src="../../../../assets/icon/profile/{{student.image}}" alt="">
-        <h2>{{student.name}}</h2>
+        <h2>{{student.name.split(" ")[0]}}</h2>
       </ion-card>
       </ion-col>
     </ion-row>

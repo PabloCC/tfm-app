@@ -10,5 +10,49 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid class="wrapper">
+    <ion-row>
+      <h1>Enviadas</h1>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="12" size-md="6" offset-md="3">
+        <div *ngFor="let note of notes">
+          <ion-card *ngIf="user && user.id === note.origin.id">
+            <ion-card-header>
+              <p>Para: <strong>{{note.target.name}}</strong></p>
+              <span>{{note.date.toLocaleString().split(" ")[0]}}</span>
+            </ion-card-header>
+            <ion-card-content>
+              {{note.content}}
+            </ion-card-content>
+          </ion-card>
+        </div> 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <h1>Recibidas</h1>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="12" size-md="6" offset-md="3">
+        <div *ngFor="let note of notes">
+          <ion-card *ngIf="user && user.id === note.target.id">
+            <ion-card-header>
+              <p>De: <strong>{{note.origin.name}}</strong></p>
+              <span>{{note.date.getDay()}}/{{note.date.getMonth()}}/{{note.date.getFullYear()}}</span>
+            </ion-card-header>
+            <ion-card-content>
+              {{note.content}}
+            </ion-card-content>
+          </ion-card>
+        </div> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" [routerLink]="['/tabs/tab3/create-note']">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

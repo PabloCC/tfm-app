@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: Tab2Page,
+  },
+  {
+    path: 'create-publication',
+    loadChildren: () => import('./create-publication/create-publication.module').then( m => m.CreatePublicationPageModule)
   }
 ];
 

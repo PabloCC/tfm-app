@@ -45,6 +45,7 @@ export class CreateNotePage implements OnInit {
 
     if(this.isAdmin) {
       this.router.navigate(['/tabs/tab1']);
+      return;
     } else if(this.isTeacher) {
       endpoint = EndPoints.FAMILIES_ENDPOINT;
     } else if(this.isFamily) {

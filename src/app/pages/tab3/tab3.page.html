@@ -38,7 +38,7 @@
           <ion-card *ngIf="user && user.id === note.target.id">
             <ion-card-header>
               <p>De: <strong>{{note.origin.name}}</strong></p>
-              <span>{{note.date.getDay()}}/{{note.date.getMonth()}}/{{note.date.getFullYear()}}</span>
+              <span>{{note.date.toLocaleString().split(" ")[0]}}</span>
             </ion-card-header>
             <ion-card-content>
               {{note.content}}

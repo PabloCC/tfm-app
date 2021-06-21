@@ -43,7 +43,6 @@ export class EditStudentPage implements OnInit {
         ]),
       });
   }
-
   
   ngOnInit() {
     this.httpService.authBearer(this.authService.getToken())
@@ -59,7 +58,6 @@ export class EditStudentPage implements OnInit {
       .get(EndPoints.STUDENTS_ENDPOINT + `/${this.id}`)
       .toPromise()
       .then(res => {
-        debugger;
         this.updateStudentForm.setValue({
           name: res.name,
           birthdate: res.birthdate,
@@ -88,7 +86,6 @@ export class EditStudentPage implements OnInit {
       this.updateStudentForm.get('image').setValue(data.image);
     }
   }
-
 
   onSubmit() {
     this.classroom = this.classroomService.getActiveClassroom();

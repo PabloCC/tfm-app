@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: Tab3Page,
+  },
+  {
+    path: 'create-note',
+    loadChildren: () => import('./create-note/create-note.module').then( m => m.CreateNotePageModule)
   }
 ];
 

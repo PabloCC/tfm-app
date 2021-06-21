@@ -27,7 +27,7 @@
           <h1>{{title}}</h1>
           <div class="date-wrapper">
             <h3>Cumpleaños: </h3>
-            <p *ngIf="birthdate">{{birthdate.getDay()}}/{{birthdate.getMonth()}}/{{birthdate.getFullYear()}}</p>
+            <p *ngIf="birthdate">{{birthdate.toLocaleString().split(" ")[0]}}</p>
           </div>
         </ion-card>
       </ion-col>

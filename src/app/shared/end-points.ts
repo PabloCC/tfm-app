@@ -10,4 +10,6 @@ export class EndPoints {
   static STUDENTS_ENDPOINT = environment.API_REST_URL + '/students'
   static GOALS_ENDPOINT = environment.API_REST_URL + '/goals';
   static NOTES_ENDPOINT = environment.API_REST_URL + '/notes';
+  static ASSISTANCES_ENDPOINT = environment.API_REST_URL + '/assistances';
+
 }

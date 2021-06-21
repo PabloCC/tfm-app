@@ -1,6 +1,10 @@
-<ion-header mode="ios">
+<ion-header mode="md">
   <ion-toolbar>
-    <ion-title>Registro</ion-title>
+    <ion-title>Crear usuario</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="">
+      </ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -37,8 +41,7 @@
             </ion-item>
           </div>
           <div class="wrapper">
-            <ion-button (click)="onSubmit()" expand="block" [disabled]="signUpForm.invalid">Registrarse</ion-button>
-            <p>Ya tienes cuenta <a [routerLink]="['/login']">Inicia sesión</a></p>
+            <ion-button (click)="onSubmit()" expand="block" [disabled]="signUpForm.invalid">Crear usuario</ion-button>
           </div>
         </form>
       </ion-col>

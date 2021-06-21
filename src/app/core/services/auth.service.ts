@@ -27,6 +27,7 @@ export class AuthService {
           email: this.jwt.decodeToken(token).email,
           role: this.jwt.decodeToken(token).role,
           name: this.jwt.decodeToken(token).name,
+          id: this.jwt.decodeToken(token).id,
           token,
         };
 
@@ -45,6 +46,7 @@ export class AuthService {
 
   logout(): void {
     this.user = undefined;
+    window.sessionStorage.removeItem('user-session');
     this.router.navigate(['']).then();
   }
 
@@ -66,6 +68,18 @@ export class AuthService {
 
   isFamily(): boolean {
     return this.hasRoles([Role.FAMILY]);
+  }
+
+  getUserWithoutToken() {
+    if(this.user) {
+      return {
+        username: this.user.username,
+        email: this.user.email,
+        role: this.user.role,
+        name: this.user.name,
+        id: this.user.id,
+      }
+    }
   }
 
   getName(): string {

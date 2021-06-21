@@ -7,7 +7,8 @@ import { EndPoints } from '../end-points';
   providedIn: 'root'
 })
 export class ClassroomsService {
-  private classrooms: [];
+  private classrooms: {id: number}[];
+  private activeClassroom: any;
 
   constructor(private httpService: HttpService, private authService: AuthService) { 
     this.classrooms = [];
@@ -21,13 +22,21 @@ export class ClassroomsService {
       .then(res => { this.classrooms = res });
   }
 
-  public async getClassrooms(): Promise<[]> {
-    if(this.classrooms.length) {
-      return this.classrooms;
-    } else {
-      await this.fetchClassrooms();
-      return this.classrooms;
-    }
-   
+  public async getClassrooms(): Promise<{id:number}[]> {
+    await this.fetchClassrooms();
+    return this.classrooms;
+  }
+
+  public getClassroomById(id) {
+    return this.httpService.authBearer(this.authService.getToken())
+      .get(EndPoints.CLASSROOMS_ENDPOINT + `/${id}`);
+  }
+
+  public getActiveClassroom() {
+    return this.activeClassroom;
+  }
+
+  public setActiveClassroom(id) {
+    this.activeClassroom = this.classrooms.find(item => item.id === id)
   }
 }

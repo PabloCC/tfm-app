@@ -1,0 +1,59 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title>Añadir estudiante</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="">
+      </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="12" size-md="6" offset-md="3">
+        <form [formGroup]="createStudentForm">
+          <div class="wrapper">
+            <ion-item>
+              <ion-label position="floating">Nombre</ion-label>
+              <ion-input formControlName="name"></ion-input>
+            </ion-item>
+              
+            <ion-item>
+              <ion-label position="floating">Fecha nacimiento</ion-label>
+              <ion-datetime formControlName="birthdate"></ion-datetime>
+            </ion-item>
+
+            <ion-item>   
+              <ion-label>Familiares</ion-label> 
+              <ionic-selectable
+                formControlName="families"
+                [items]="families"
+                itemValueField="id"
+                itemTextField="name"
+                [canSearch]="true"
+                [isMultiple]="true"
+                confirmButtonText="Aceptar" closeButtonText="Cancelar" searchText="Buscar">
+              </ionic-selectable>
+            </ion-item>
+
+            <ion-item>   
+              <ion-label>Imagen</ion-label>
+              <ion-button class="secondary" (click)="presentModal()">
+                <span *ngIf="!createStudentForm.get('image').value">Añadir</span>
+                <span *ngIf="createStudentForm.get('image').value">{{createStudentForm.get('image').value}}</span>
+              </ion-button>
+            </ion-item>
+          
+          </div>
+          <div class="wrapper">
+            <ion-button (click)="onSubmit()" expand="block" [disabled]="createStudentForm.invalid">Crear estudiante</ion-button>
+          </div>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+ 
+
+</ion-content>

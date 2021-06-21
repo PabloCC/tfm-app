@@ -1,4 +1,4 @@
-<ion-header mode="ios">
+<ion-header mode="md">
   <ion-toolbar>
     <ion-title>Login</ion-title>
   </ion-toolbar>
@@ -22,7 +22,6 @@
           </div>
           <div class="wrapper">
             <ion-button (click)="onSubmit()" expand="block" [disabled]="loginForm.invalid">Iniciar sesión</ion-button>
-            <p>¿No tienes cuenta? <a [routerLink]="['/signup']">Registrate</a></p>
           </div>
         </form>
       </ion-col>

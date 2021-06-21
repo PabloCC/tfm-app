@@ -7,5 +7,7 @@ export class EndPoints {
   static TEACHERS_ENDPOINT = environment.API_REST_URL + '/auth/teachers';
   static ADMINS_ENDPOINT = environment.API_REST_URL + '/auth/admins';
   static FAMILIES_ENDPOINT = environment.API_REST_URL + '/auth/families';
-
+  static STUDENTS_ENDPOINT = environment.API_REST_URL + '/students'
+  static GOALS_ENDPOINT = environment.API_REST_URL + '/goals';
+  static NOTES_ENDPOINT = environment.API_REST_URL + '/notes';
 }

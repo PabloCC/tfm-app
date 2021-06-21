@@ -1,0 +1,30 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title>Asistencia al aula</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-align-self-start" size="12">
+        <div class="wrapper">
+          <form [formGroup]="assistanceForm">
+            <ion-list >
+              <ion-item *ngFor="let student of students; let i = index" formArrayName="students">  
+                <ion-label>{{student.name}}</ion-label>
+                <ion-toggle [formControlName]="i"></ion-toggle>
+              </ion-item>
+            </ion-list>
+          </form>
+        </div>
+        <div class="wrapper">
+          <ion-button (click)="onSubmit()" expand="block">Guardar</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

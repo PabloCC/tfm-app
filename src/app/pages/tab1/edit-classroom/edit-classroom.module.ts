@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { EditClassroomPageRoutingModule } from './edit-classroom-routing.module';
 
 import { EditClassroomPage } from './edit-classroom.page';
+import { IonicSelectableModule } from 'ionic-selectable';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { EditClassroomPage } from './edit-classroom.page';
     FormsModule,
     IonicModule,
     EditClassroomPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    IonicSelectableModule
   ],
   declarations: [EditClassroomPage]
 })

@@ -45,6 +45,7 @@ export class AuthService {
 
   logout(): void {
     this.user = undefined;
+    window.sessionStorage.removeItem('user-session');
     this.router.navigate(['']).then();
   }
 

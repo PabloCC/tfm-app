@@ -14,10 +14,6 @@ export class SignupPage implements OnInit {
   signUpForm: FormGroup;
 
   constructor(private httpService: HttpService, private authService: AuthService, private router: Router) { 
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/tabs']);
-    }
-
     this.signUpForm = new FormGroup({
       name: new FormControl('', [
         Validators.required,
@@ -51,6 +47,10 @@ export class SignupPage implements OnInit {
 
     this.httpService
     .successful('Registro completado')
-    .post(EndPoints.SIGN_UP_ENDOINT, body).subscribe();
+    .post(EndPoints.SIGN_UP_ENDOINT, body)
+    .toPromise()
+    .then(() => {
+      this.router.navigate(['/tabs']);
+    });
   }
 }

@@ -1,5 +1,7 @@
 ion-content {
     --ion-background-color: #fff;
+
+
 }
 
 .wrapper {
@@ -18,4 +20,25 @@ ion-card-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    & > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        span {
+            margin-left: 10px;
+            width: 30px;
+            height: 30px;
+            background: var(--ion-color-primary);
+            border-radius: 50%;
+            border: 3px solid #ccc;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            line-height: 2px;
+        }
+    }
 }

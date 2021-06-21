@@ -25,6 +25,24 @@ const routes: Routes = [
     canActivate: [RoleGuard],
     data: {roles: [Role.ADMIN]},
   },
+  {
+    path: 'add-student',
+    loadChildren: () => import('./add-student/add-student.module').then( m => m.AddStudentPageModule),
+    canActivate: [RoleGuard],
+    data: {roles: [Role.TEACHER]},
+  },
+  {
+    path: 'student/:id',
+    loadChildren: () => import('./student/student.module').then( m => m.StudentPageModule)
+  },
+  {
+    path: 'add-goal',
+    loadChildren: () => import('./add-goal/add-goal.module').then( m => m.AddGoalPageModule)
+  },
+  {
+    path: 'edit-student/:id',
+    loadChildren: () => import('./edit-student/edit-student.module').then( m => m.EditStudentPageModule)
+  },
 ];
 
 @NgModule({

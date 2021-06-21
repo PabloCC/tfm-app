@@ -1,4 +1,4 @@
-<ion-header mode="ios">
+<ion-header mode="md">
   <ion-toolbar>
     <ion-title>Crear aula</ion-title>
     <ion-buttons slot="start">
@@ -21,7 +21,7 @@
 
             <ion-item>
               <ion-label>Nivel</ion-label>
-              <ion-select okText="Aceptar" cancelText="Cancelar" formControlName="stage">
+              <ion-select interface="action-sheet" okText="Aceptar" cancelText="Cancelar" formControlName="stage">
                 <ion-select-option value="0">0-1 años</ion-select-option>
                 <ion-select-option value="1">1-2 años</ion-select-option>
                 <ion-select-option value="2">2-3 años</ion-select-option>
@@ -30,13 +30,21 @@
                 <ion-select-option value="5">5-6 años</ion-select-option>
               </ion-select>
             </ion-item>
-
-            <ion-item>
-              <ion-label>Profesores</ion-label>
-              <ion-select okText="Aceptar" cancelText="Cancelar" formControlName="teachers" multiple="true">
-                <ion-select-option *ngFor="let teacher of teachers" [value]="teacher.id">{{teacher.name}}</ion-select-option>
-              </ion-select>
+              
+            <ion-item>   
+              <ion-label>Profesores</ion-label> 
+              <ionic-selectable
+                formControlName="teachers"
+                [items]="teachers"
+                itemValueField="id"
+                itemTextField="name"
+                [canSearch]="true"
+                [isMultiple]="true"
+                confirmButtonText="Aceptar" closeButtonText="Cancelar" searchText="Buscar">
+              </ionic-selectable>
             </ion-item>
+
+          
           </div>
           <div class="wrapper">
             <ion-button (click)="onSubmit()" expand="block" [disabled]="createClassroomForm.invalid">Crear aula</ion-button>

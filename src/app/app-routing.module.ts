@@ -16,6 +16,8 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule),
+    canActivate: [RoleGuard],
+    data: {roles: [Role.ADMIN]},
   },
   {
     path: '',
@@ -26,6 +28,10 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'modal',
+    loadChildren: () => import('./shared/components/modal/modal.module').then( m => m.ModalPageModule)
   },
 ];
 @NgModule({

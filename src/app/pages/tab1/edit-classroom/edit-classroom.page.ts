@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { EndPoints } from 'src/app/shared/end-points';
@@ -49,24 +47,21 @@ export class EditClassroomPage implements OnInit {
         this.updateClassroomForm.setValue({
           name: res.name,
           stage: res.stage.toString(),
-          teachers: res.teachers.map(item => item.id),
+          teachers: res.teachers,
         })
-
-        console.log(this.updateClassroomForm)
       });
   }
 
   onSubmit() {
-    const teachersSelected = this.teachers.filter(item => this.updateClassroomForm.get('teachers').value.includes(item.id))
     const body = {
       name: this.updateClassroomForm.get('name').value,
       stage: parseInt(this.updateClassroomForm.get('stage').value),
-      teachers: teachersSelected
+      teachers: this.updateClassroomForm.get('teachers').value,
     }
 
     this.httpService.authBearer(this.authService.getToken())
       .successful('Aula editada')
-      .post(EndPoints.CLASSROOMS_ENDPOINT, body)
+      .put(EndPoints.CLASSROOMS_ENDPOINT + `/${this.id}`, body)
       .subscribe();
   }
 }

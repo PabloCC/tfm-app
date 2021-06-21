@@ -1,4 +1,4 @@
-<ion-header mode="ios">
+<ion-header mode="md">
   <ion-toolbar>
     <ion-title>Editar aula</ion-title>
     <ion-buttons slot="start">
@@ -31,15 +31,21 @@
               </ion-select>
             </ion-item>
 
-            <ion-item>
-              <ion-label>Profesores</ion-label>
-              <ion-select okText="Aceptar" cancelText="Cancelar" formControlName="teachers" multiple="true">
-                <ion-select-option *ngFor="let teacher of teachers" [value]="teacher.id">{{teacher.name}}</ion-select-option>
-              </ion-select>
+            <ion-item>   
+              <ion-label>Profesores</ion-label> 
+              <ionic-selectable
+                formControlName="teachers"
+                [items]="teachers"
+                itemValueField="id"
+                itemTextField="name"
+                [canSearch]="true"
+                [isMultiple]="true"
+                confirmButtonText="Aceptar" closeButtonText="Cancelar">
+              </ionic-selectable>
             </ion-item>
           </div>
           <div class="wrapper">
-            <ion-button (click)="onSubmit()" expand="block" [disabled]="updateClassroomForm.invalid">Editar aula</ion-button>
+            <ion-button (click)="onSubmit()" expand="block" [disabled]="updateClassroomForm.invalid || !updateClassroomForm.touched">Editar aula</ion-button>
           </div>
         </form>
       </ion-col>

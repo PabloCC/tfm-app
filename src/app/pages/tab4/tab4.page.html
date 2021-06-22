@@ -21,5 +21,23 @@
         </ion-card>
       </ion-col>
     </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-align-center" size="12" size-md="6" offset-md="3">
+        <ion-card *ngIf="achievements.length">  
+          <ion-card-subtitle>HITOS LOGRADOS HOY</ion-card-subtitle>
+
+          <div class="goals" *ngFor="let achievement of achievements">
+            <ion-icon name="checkmark-circle" color="success"></ion-icon>
+            <span>{{achievement.goal.name}}</span>
+          </div> 
+        </ion-card>
+        <ion-card *ngIf="!achievements.length">  
+          <div>
+            No existen logros
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>

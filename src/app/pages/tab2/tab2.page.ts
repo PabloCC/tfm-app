@@ -13,6 +13,7 @@ import { EndPoints } from 'src/app/shared/end-points';
 export class Tab2Page {
   publications: {id: number, date: any}[];
   subscription : Subscription;
+  isTeacher: boolean;
 
   constructor(
     private router: Router, 
@@ -32,6 +33,7 @@ export class Tab2Page {
   }
 
   public async onEnter(): Promise<void> {
+    this.isTeacher = this.authService.isTeacher();
     await this.getPublications();
   }
 

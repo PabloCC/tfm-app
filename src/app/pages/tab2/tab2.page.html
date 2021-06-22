@@ -27,7 +27,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" [routerLink]="['/tabs/tab2/create-publication']">
+  <ion-fab *ngIf="isTeacher" vertical="bottom" horizontal="end" slot="fixed" [routerLink]="['/tabs/tab2/create-publication']">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

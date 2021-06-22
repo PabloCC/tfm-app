@@ -13,12 +13,15 @@ import { EndPoints } from 'src/app/shared/end-points';
 export class Tab4Page implements OnInit {
   student: any;
   subscription: Subscription;
+  achievements: any;
 
   constructor(
     private httpService: HttpService,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {
+    this.achievements = [];
+   }
 
   public async ngOnInit(): Promise<void> {
     await this.onEnter();
@@ -31,11 +34,17 @@ export class Tab4Page implements OnInit {
   }
 
   public async onEnter(): Promise<void> {
-    this.httpService.authBearer(this.authService.getToken())
+    this.student = await this.httpService.authBearer(this.authService.getToken())
       .get(EndPoints.STUDENTS_ENDPOINT)
+      .toPromise();
+
+    this.student =  this.student.find(item => item.parents.some(elem => elem.id === this.authService.getId()))
+
+    this.httpService.authBearer(this.authService.getToken())
+      .get(EndPoints.ACHIEVEMENT_ENDPOINT)
       .toPromise()
       .then(res => {
-        this.student = res.find(item => item.parents.some(elem => elem.id === this.authService.getId()))
+        this.achievements = res.filter(item => item.student && item.student.id === this.student.id);
       });
   }
 }

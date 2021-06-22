@@ -16,6 +16,7 @@ export class Tab1Page implements OnInit{
   classrooms: {id: number}[];
   isAdmin: boolean;
   subscription : Subscription;
+
   constructor(
     private classroomsService: ClassroomsService, 
     private router: Router, 
@@ -23,6 +24,7 @@ export class Tab1Page implements OnInit{
     private httpService: HttpService,
     private alertController: AlertController) {
     this.isAdmin = false;
+    this.classrooms = [];
   }
 
   public async ngOnInit(): Promise<void> {
@@ -41,7 +43,12 @@ export class Tab1Page implements OnInit{
   }
 
   async getClassrooms() {
-    this.classrooms = await this.classroomsService.getClassrooms();  
+    const classrooms = await this.classroomsService.getClassrooms();
+    if (Array.isArray(classrooms)) {
+      this.classrooms = classrooms;
+    } else {
+      this.classrooms = [];
+    }
   }
 
   onEdit(e: MouseEvent, id) {

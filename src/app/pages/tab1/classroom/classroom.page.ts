@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpService } from 'src/app/core/services/http.service';
+import { AssistancePage } from 'src/app/shared/components/assistance/assistance.page';
 import { EndPoints } from 'src/app/shared/end-points';
 import { ClassroomsService } from 'src/app/shared/services/classrooms.service';
 
@@ -23,7 +25,8 @@ export class ClassroomPage implements OnInit {
     private httpService: HttpService,
     private classroomService: ClassroomsService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private modalController: ModalController) {
     this.isTeacher = false;
   }
 
@@ -59,5 +62,40 @@ export class ClassroomPage implements OnInit {
 
   onClickStudent(id) {
     this.router.navigate(['/tabs/tab1/student', id]);
+  }
+
+  async addAssistance() {
+    const modal = await this.modalController.create({
+      component: AssistancePage,
+      cssClass: 'my-custom-class',
+      swipeToClose: true,
+      presentingElement: await this.modalController.getTop(),
+      componentProps: {
+        students: this.students,
+      } // Get the top-most ion-modal
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+
+    if (data && data.students) {
+      this.saveAssistances(data.students);
+    }
+  }
+
+  saveAssistances(students) {
+    students.forEach(item => {
+      const body = {
+        date: new Date(Date.now()).toISOString().split(" ")[0],
+        isPresent: true,
+        student: item
+      }
+
+      this.httpService.authBearer(this.authService.getToken())
+      .successful('Asistencias guardadas')
+      .post(EndPoints.ASSISTANCES_ENDPOINT, body)
+      .subscribe();
+    })
   }
 }

@@ -1,0 +1,43 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title>Alumno</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="profile icon" color="primary" fill="outline" [routerLink]="['/profile']">
+        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-align-center" size="12" size-md="6" offset-md="3">
+        <ion-card>
+          <div class="image-wrapper">
+            <img *ngIf="student && student.image" src="../../../../assets/icon/profile/{{student.image}}">
+          </div>
+          <h1 *ngIf="student && student.name">{{student.name}}</h1>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-align-center" size="12" size-md="6" offset-md="3">
+        <ion-card *ngIf="achievements.length">  
+          <ion-card-subtitle>HITOS LOGRADOS HOY</ion-card-subtitle>
+
+          <div class="goals" *ngFor="let achievement of achievements">
+            <ion-icon name="checkmark-circle" color="success"></ion-icon>
+            <span>{{achievement.goal.name}}</span>
+          </div> 
+        </ion-card>
+        <ion-card *ngIf="!achievements.length">  
+          <div>
+            No existen logros
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

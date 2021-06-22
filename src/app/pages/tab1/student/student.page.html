@@ -35,17 +35,19 @@
     <ion-row>
       <ion-col class="ion-align-center" size="12" size-md="6" offset-md="3">
         <ion-card>
-          <div class="goals">
+          <div *ngIf="goals.length" class="goals">
             <h3>Hitos disponibles {{today}}</h3>
-            <ion-item *ngFor="let goal of goals">
-              <ion-label>
-                <img src="../../../../assets/icon/goals/{{goal.image}}" />
-                <span>{{goal.name}}</span>
-              </ion-label>
-              <ion-toggle color="primary"></ion-toggle>
-            </ion-item>
-
-            <ion-button expand="block">Guardar</ion-button>
+            <form [formGroup]="goalsForm">
+              <ion-item *ngFor="let goal of goals; let i = index" formArrayName="goals">
+                <ion-label>
+                  <img src="../../../../assets/icon/goals/{{goal.image}}" />
+                  <span>{{goal.name}}</span>
+                </ion-label>
+                <ion-toggle color="primary" [formControlName]="i"></ion-toggle>
+              </ion-item>
+  
+              <ion-button (click)="saveGoals()" expand="block">Guardar</ion-button>
+            </form>
           </div>
         </ion-card>
       </ion-col>

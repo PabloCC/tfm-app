@@ -1,0 +1,16 @@
+
+.wrapper {
+  padding: 20px;
+
+  ion-item {
+      --padding-start: 0;
+      --padding-end: 0;
+      display: flex;
+      min-height: 40px;
+      align-items: center;
+  }
+
+  p {
+      text-align: center;
+  }
+}

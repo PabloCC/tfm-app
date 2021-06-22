@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -22,6 +23,7 @@ export class StudentPage implements OnInit {
   today: string;
   goals: [];
   classroom;
+  goalsForm: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -32,6 +34,7 @@ export class StudentPage implements OnInit {
     private alertController: AlertController) {
       this.isTeacher = false;
       this.today = new Date(Date.now()).toLocaleString().split(" ")[0];
+      this.goals = [];
   }
 
   public async ngOnInit(): Promise<void> {
@@ -47,14 +50,14 @@ export class StudentPage implements OnInit {
   public async onEnter(): Promise<void> {
     const id = this.route.snapshot.params.id;
 
-    const student = await this.studentService.getStudentById(id).toPromise();
-    this.studentService.setActiveStudent(student.id);
-    this.title = student.name;
-    this.image = student.image;
-    this.birthdate = new Date(student.birthdate);
+    this.student = await this.studentService.getStudentById(id).toPromise();
+    this.studentService.setActiveStudent(this.student.id);
+    this.title = this.student.name;
+    this.image = this.student.image;
+    this.birthdate = new Date(this.student.birthdate);
 
     this.classroom = await this.httpService.authBearer(this.authService.getToken())
-    .get(EndPoints.CLASSROOMS_ENDPOINT + '/student/' + student.id)
+    .get(EndPoints.CLASSROOMS_ENDPOINT + '/student/' + this.student.id)
     .toPromise();
 
     this.getGoals(this.classroom.id);
@@ -68,6 +71,11 @@ export class StudentPage implements OnInit {
     .then(res => {
       const goals = res;
       this.goals = goals.filter(item => item.classroom.id === id);
+
+      this.goalsForm = new FormGroup({
+        goals: new FormArray(this.goals.map(() => new FormControl(false,)))
+      }
+      );
     });
   }
 
@@ -107,4 +115,26 @@ export class StudentPage implements OnInit {
       this.router.navigate(['/tabs/tab1/classroom/' + this.classroom.id]);
     });
   }
+
+  saveGoals() {
+    const form = this.goalsForm.get('goals').value;
+
+   
+
+    this.goals.forEach((item, index) => {
+      if (form[index]) {
+        debugger;
+        const body = {
+          date: new Date(Date.now()).toISOString().split(" ")[0],
+          student: this.student,
+          goal: item
+        }
+
+        this.httpService.authBearer(this.authService.getToken())
+        .successful('Hito guardado correctamente')
+        .post(EndPoints.ACHIEVEMENT_ENDPOINT, body)
+        .subscribe();
+      }
+    });
+  }  
 }

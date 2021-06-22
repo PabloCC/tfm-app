@@ -32,7 +32,13 @@ export class AuthService {
         };
 
         this.saveSessionStorage();
-        this.router.navigate(['/tabs/tab1']);
+
+        if (this.isFamily()) {
+          this.router.navigate(['/tabs/tab4']);
+        } else {
+          this.router.navigate(['/tabs/tab1']);
+        }
+
     });
   }
 
@@ -80,6 +86,10 @@ export class AuthService {
         id: this.user.id,
       }
     }
+  }
+
+  getId(): number {
+    return this.user ? this.user.id : null;
   }
 
   getName(): string {
